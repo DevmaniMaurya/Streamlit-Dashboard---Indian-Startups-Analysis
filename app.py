@@ -98,17 +98,72 @@ def load_overall_analysis():
         st.pyplot(fig7)
 
     #❖	Top Startups -> year wise -> Overall---------------------------------------------------------
-    top_startups_year=df.groupby('year')[['startup','amount']].max().reset_index().head()
+    st.title('Top Startups ')
 
-    top_startups_overall=df.groupby('startup')['amount'].sum().sort_values(ascending=False).head()
+    selected_option = st.selectbox('Select Type',['select_one','yearly','Overall'])
+    if selected_option == 'yearly':
 
-    st.header('Top Startups')
-    top_startups_btn=st.selectbox('Type of Analysis',['Year Wise','Overall'])
+        st.header('Top startups from year 2015-2020')
+        col1, col2 = st.columns(2)
+        with col1:
+            temp_df=df[df['year'] == 2015].groupby('startup')['amount'].sum().sort_values(ascending=False).head(5)
 
-    if top_startups_btn=='Year Wise':
-        st.dataframe(top_startups_year)
-    else:
-        st.dataframe(top_startups_overall)
+            fig9, ax10 = plt.subplots(figsize=(8,8))
+            ax10.pie(temp_df, labels=temp_df.index, autopct='%0.1f%%')
+            plt.title('year - 2015')
+            st.pyplot(fig9)
+
+        with col2:
+            temp_df=df[df['year'] == 2016].groupby('startup')['amount'].sum().sort_values(ascending=False).head(5)
+
+            fig9, ax10 = plt.subplots(figsize=(8,8))
+            ax10.pie(temp_df, labels=temp_df.index, autopct='%0.1f%%')
+            plt.title('year - 2016')
+            st.pyplot(fig9)
+
+
+
+        col3, col4 = st.columns(2)
+        with col3:
+            temp_df=df[df['year'] == 2017].groupby('startup')['amount'].sum().sort_values(ascending=False).head(5)
+
+            fig9, ax10 = plt.subplots(figsize=(8,8))
+            ax10.pie(temp_df, labels=temp_df.index, autopct='%0.1f%%')
+            plt.title('year - 2017')
+            st.pyplot(fig9)
+
+        with col4:
+            temp_df=df[df['year'] == 2018].groupby('startup')['amount'].sum().sort_values(ascending=False).head(5)
+
+            fig9, ax10 = plt.subplots(figsize=(8,8))
+            ax10.pie(temp_df, labels=temp_df.index, autopct='%0.1f%%')
+            plt.title('year - 2018')
+            st.pyplot(fig9)
+
+
+        col5, col6 = st.columns(2)
+        with col5:
+            temp_df=df[df['year'] == 2019].groupby('startup')['amount'].sum().sort_values(ascending=False).head(5)
+
+            fig9, ax10 = plt.subplots(figsize=(8,8))
+            ax10.pie(temp_df, labels=temp_df.index, autopct='%0.1f%%')
+            plt.title('year - 2019')
+            st.pyplot(fig9)
+
+
+        with col6:
+            temp_df=df[df['year'] == 2020].groupby('startup')['amount'].sum().sort_values(ascending=False).head(5)
+
+            fig9, ax10 = plt.subplots(figsize=(8,8))
+            ax10.pie(temp_df, labels=temp_df.index, autopct='%0.1f%%')
+            plt.title('year - 2020')
+            st.pyplot(fig9)
+
+    elif selected_option =='Overall':
+        temp_df=df.groupby('startup')['amount'].sum().sort_values(ascending=False).head()
+        fig10, ax11 = plt.subplots(figsize=(10,10))
+        ax11.pie(temp_df, labels=temp_df.index, autopct='%0.1f%%')
+        st.pyplot(fig10)
 
     #❖	Top investors--------------------------------------------------------------------------------
     top_investors=df.groupby('investors')['amount'].sum().head()
